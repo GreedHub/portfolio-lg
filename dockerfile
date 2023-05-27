@@ -9,7 +9,9 @@ FROM node:18 AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN npm run build && \
+    cd /app/.next && \
+    ls -la
 
 # Production image, copy all the files and run next
 FROM node:18 AS runner
@@ -17,7 +19,7 @@ WORKDIR /app
 
 ENV NODE_ENV production
 
-RUN addgroup --system --gid 1001  nodejs
+RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system nextjs --uid 1001
 
 # You only need to copy next.config.js if you are NOT using the default configuration
