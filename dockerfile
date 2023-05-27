@@ -1,11 +1,11 @@
 # Install dependencies only when needed
-FROM node:18 AS deps
+FROM node:18-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --silent
 
 # Rebuild the source code only when needed
-FROM node:18 AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -14,13 +14,13 @@ RUN npm run build && \
     ls -la
 
 # Production image, copy all the files and run next
-FROM node:18 AS runner
+FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system nextjs --uid 1001
+RUN addgroup --system --gid 1001 nodejs  &&\
+     adduser --system nextjs --uid 1001
 
 # You only need to copy next.config.js if you are NOT using the default configuration
 # COPY --from=builder /app/src/public ./public
