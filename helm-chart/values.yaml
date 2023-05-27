@@ -8,6 +8,7 @@ name: "portfolio-lg"
 namespace: "default"
 
 http:
+  containerPort: "3000"
   exposedPort: "80"
   host: "lguerci.com.ar"
 

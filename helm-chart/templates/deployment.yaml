@@ -26,7 +26,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: {{ .Values.http.exposedPort}}
+            port: {{ .Values.http.containerPort}}
             scheme: HTTP
           initialDelaySeconds: 10
           timeoutSeconds: 20
@@ -34,7 +34,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /
-            port: {{ .Values.http.exposedPort}}
+            port: {{ .Values.http.containerPort}}
             scheme: HTTP
           initialDelaySeconds: 10
           timeoutSeconds: 20
@@ -55,7 +55,7 @@ spec:
               fieldPath: spec.nodeName
         ports:
         - name: {{ .Values.name}}
-          containerPort: {{ .Values.http.exposedPort}}
+          containerPort: {{ .Values.http.containerPort}}
           
 ---
 
@@ -85,7 +85,7 @@ spec:
   - protocol: TCP
     name: {{ .Values.name}}
     port: {{ .Values.http.exposedPort}}
-    targetPort: {{ .Values.http.exposedPort}}
+    targetPort: {{ .Values.http.containerPort}}
 ---
 
 apiVersion: traefik.containo.us/v1alpha1
