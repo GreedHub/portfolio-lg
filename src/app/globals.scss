@@ -1,12 +1,12 @@
-@use 'sass:map';
+@use "sass:map";
 
 $palette: (
   white: #ffffff,
-  background: #1A243D,
-  background-nav: rgba(21, 28, 44, .5),
-  text-nav: #C1C1C1,
-  text-secondary: #474A62,
-  accent: #D76161,
+  background: #1a243d,
+  background-nav: rgba(21, 28, 44, 0.5),
+  text-nav: #c1c1c1,
+  text-secondary: #474a62,
+  accent: #d76161,
 );
 
 $radius: 5px;
@@ -24,20 +24,32 @@ $radius: 5px;
 %button-primary {
   border: none;
   border-radius: $radius;
-  background-color: color('accent');
+  background-color: color("accent");
   color: white;
 }
 
 %button-primary:hover {
   cursor: pointer;
-  background-color: lighten($color: color('accent'), $amount: 5);
+  background-color: lighten($color: color("accent"), $amount: 5);
 }
 
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-body{
-    background-color: color("background");
+body {
+  background: color("background");
+}
+
+body::after {
+  content: "";
+  background: url("../img/background-pattern.svg");
+  background-size: 500px;
+  opacity: 15%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
 }
