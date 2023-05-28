@@ -6,6 +6,7 @@ $palette: (
   background-nav: rgba(21, 28, 44, 0.5),
   text-nav: #c1c1c1,
   text-secondary: #474a62,
+  text-invert: #ffffff,
   accent: #d76161,
 );
 
@@ -21,16 +22,37 @@ $radius: 5px;
   align-items: center;
 }
 
+%button {
+  padding: 0.8em;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
 %button-primary {
-  border: none;
+  @extend %button;
+  border: solid 2px color("accent");
   border-radius: $radius;
   background-color: color("accent");
-  color: white;
+  color: color("text-invert");
 }
 
 %button-primary:hover {
   cursor: pointer;
   background-color: lighten($color: color("accent"), $amount: 5);
+}
+
+%button-secondary {
+  @extend %button;
+  border: solid 2px color("accent");
+  background-color: transparent;
+  border-radius: $radius;
+  color: color("accent");
+}
+
+%button-secondary:hover {
+  cursor: pointer;
+  background-color: color("accent");
+  color: color("text-invert");
 }
 
 * {
@@ -40,6 +62,33 @@ $radius: 5px;
 
 body {
   background: color("background");
+  display: grid;
+  grid-template-columns: 1fr minmax(auto, 1500px) 1fr;
+  grid-template-rows: 53px 1fr;
+  grid-template-areas:
+    "blank-header1 header blank-header2"
+    "blank-main1 main blank-main-2";
+}
+
+main {
+  grid-area: main;
+  padding: 0 20px;
+}
+
+header {
+  grid-area: header;
+}
+
+.fake1 {
+  grid-area: blank-header1;
+  background-color: color("background-nav");
+}
+
+.fake2 {
+  content: "";
+  grid-area: blank-header2;
+  display: fixed;
+  background-color: color("background-nav");
 }
 
 body::after {
@@ -51,5 +100,6 @@ body::after {
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: -1;
   position: absolute;
 }
